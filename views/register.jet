@@ -1,0 +1,59 @@
+{{ extends "./layouts/base.jet" }}
+
+{{ block css() }}{{ end }}
+
+{{ block browserTitle() }}Register{{ end }}
+
+{{ block pageContent() }}
+    <h2 class="mt-5 text-center">Register</h2>
+    <div class="col">
+    <hr>
+    {{if .Flash != ""}}
+    <div class="alert alert-info text-center">
+        {{.Flash}}
+    </div>
+    {{end}}
+    <form method="post" action="/users/register" name="register-form" id="register-form"
+    class="d-block needs-validation" autocomplete="off" novalidate="">
+        <input type="hidden" name="csrf_token" value={{.CSRFToken}}>
+         <div class="mb-3">
+                <label for="first_name" class="form-label">First Name</label>
+                <input type="text" value="{{user.FirstName}}" class='form-control {{isset(validator.Errors["first_name"]) ? "is-invalid" : ""}}' id="first_name" name="first_name" required=""  autocomplete="first_name-new">
+                <div class="invalid-feedback">
+                            {{isset(validator.Errors["first_name"]) ? validator.Errors["first_name"] : ""}}
+                </div>
+         </div>
+         <div class="mb-3">
+                <label for="last_name" class="form-label">Last Name</label>
+                <input type="text" value="{{user.LastName}}" class='form-control {{isset(validator.Errors["last_name"]) ? "is-invalid" : ""}}' id="last_name" name="last_name" required="" autocomplete="last_name-new">
+                <div class="invalid-feedback">
+                            {{isset(validator.Errors["last_name"]) ? validator.Errors["last_name"] : ""}}
+                </div>
+         </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" value="{{user.Email}}" class='form-control {{isset(validator.Errors["email"]) ? "is-invalid" : ""}}' id="email" name="email" required="" autocomplete="email-new">
+                <div class="invalid-feedback">
+                            {{isset(validator.Errors["email"]) ? validator.Errors["email"] : ""}}
+                </div>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" id="password" class='form-control {{isset(validator.Errors["password"]) ? "is-invalid" : ""}}' name="password" required="" autocomplete="password-new">
+                        <div class="invalid-feedback">
+                                    {{isset(validator.Errors["password"]) ? validator.Errors["password"] : ""}}
+                        </div>
+        </div>
+        <hr>
+        <input type="submit" class="btn btn-dark w-100 my-2" value="Register">
+
+
+    </form>
+    <div class="text-center">
+         <p>If you already registered You can login from here <a class="w-100 my-3" href="/users/login"> Login</a></p>
+    </div>
+{{ end }}
+
+{{ block js() }}
+
+{{ end }}

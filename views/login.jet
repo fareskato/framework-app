@@ -1,0 +1,49 @@
+{{ extends "./layouts/base.jet" }}
+
+{{ block css() }}{{ end }}
+
+{{ block browserTitle() }}Login{{ end }}
+
+{{ block pageContent() }}
+    <h2 class="mt-5 text-center">Login</h2>
+    <div class="col">
+    <hr>
+    {{if .Flash != ""}}
+    <div class="alert alert-info text-center">
+        {{.Flash}}
+    </div>
+    {{end}}
+    <form method="post" action="/users/login" name="login-form" id="login-form"
+    class="d-block needs-validation" autocomplete="off" novalidate="">
+        <input type="hidden" name="csrf_token" value={{.CSRFToken}}>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+       <input type="email" value="{{user.Email}}" class='form-control {{isset(validator.Errors["email"]) ? "is-invalid" : ""}}' id="email" name="email" required="" autocomplete="email-new">
+                <div class="invalid-feedback">
+                            {{isset(validator.Errors["email"]) ? validator.Errors["email"] : ""}}
+                </div>        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" class='form-control {{isset(validator.Errors["password"]) ? "is-invalid" : ""}}' name="password" required="" autocomplete="password-new">
+                              <div class="invalid-feedback">
+                                          {{isset(validator.Errors["password"]) ? validator.Errors["password"] : ""}}
+                              </div>
+        </div>
+        <div class="form-check form-switch">
+            <input type="checkbox" class="form-check-input"  name="remember" value="remember">
+            <label for="remember" class="form-check-label">Remember me</label>
+        </div>
+        <hr>
+        <input type="submit" class="btn btn-dark w-100 my-2" value="Login">
+        <p class="mt-2">
+            <small><a href="/users/forgot-password">Forgot Password?</a></small>
+        </p>
+    </form>
+    <div class="text-center">
+        <p> didn't register yes?? <a class="" href="/users/register"> Register</a></p>
+    </div>
+{{ end }}
+
+{{ block js() }}
+
+{{ end }}

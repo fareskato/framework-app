@@ -1,0 +1,60 @@
+{{extends "./layouts/base.jet"}}
+
+{{block browserTitle()}}
+Forgot Password
+{{end}}
+
+{{block css()}} {{end}}
+
+{{block pageContent()}}
+<h2 class="mt-5 text-center">Forgot Password</h2>
+
+<hr>
+
+{{if .Error != ""}}
+<div class="alert alert-danger text-center">
+    {{.Error}}
+</div>
+{{end}}
+
+{{if .Flash != ""}}
+<div class="alert alert-info text-center">
+    {{.Flash}}
+</div>
+{{end}}
+
+
+<p>
+    Enter your email address in the form below, and we'll
+    email you a link to reset your password.
+</p>
+
+<form method="post"
+      name="forgot-form" id="forgot-form"
+      class="d-block needs-validation"
+      action="/users/forgot-password"
+      autocomplete="off" novalidate=""
+      onkeydown="return event.key != 'Enter';"
+>
+    <input type="hidden" name="csrf_token" value="{{.CSRFToken}}">
+
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class='form-control {{isset(validator.Errors["email"]) ? "is-invalid" : ""}}' id="email" name="email"
+               required="" autocomplete="email-new">
+        <div class="invalid-feedback">
+                    {{isset(validator.Errors["email"]) ? validator.Errors["email"] : ""}}
+        </div>
+    </div>
+
+    <hr>
+
+    <input type="submit" class="btn btn-dark w-100 my-2" value="Send Reset Password Email">
+
+</form>
+
+{{end}}
+
+{{ block js()}}
+
+{{end}}
